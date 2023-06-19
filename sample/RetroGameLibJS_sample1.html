@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Retro Game Lib JS Sample 1</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<script type='text/javascript' src='rgjslib.js'></script>
+
+	<script type="text/javascript">
+	function start() {
+		var dataSprite1 = [
+			"00033333333333333333333333333000",
+			"00333333333333333333333333333300",
+			"03333333333333333333333333333330",
+			"33300000000000000000000000000333",
+			"33300000000000000000000000000333",
+			"33300111111111111111111111100333",
+			"33300111111111111111111111100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110005555555555500001100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300110000000000000000001100333",
+			"33300111111111111111111111100333",
+			"33300111111111111111111111100333",
+			"33300000000000000000000000000333",
+			"33300000000000000000000000000333",
+			"03333333333333333333333333333330",
+			"00333333333333333333333333333300",
+			"00033333333333333333333333333000",
+		];
+		
+		var dataSprite2 = [
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+		];
+		
+		var dataSprite3 = [
+			"00088000",
+			"00088000",
+			"00088000",
+			"00088000",
+			"00088000",
+			"00000000",
+			"00088000",
+			"00088000",
+		];
+			
+		var screen1 = new RGScreen(document.getElementById('screen1'));
+		
+		// フレームレート
+		screen1.setFrameRate(60);
+		
+		// フレームレート表示
+		screen1.frameRateOn();
+		
+		// 背景色
+		screen1.setBackGroundColor(1);
+		
+		// スクリーンサイズ
+		screen1.setSize(320, 200);
+		
+		// 表示倍率
+		screen1.setScale(1.0);
+
+		// 四角
+		screen1.rect(80, 50, 240, 140, 15, true);
+		
+		// 丸
+		screen1.circle(160, 95, 25, 8, true);
+		
+		// 線
+		screen1.line(0, 199, 20, 179, 7, false);
+		screen1.line(20, 179, 0, 159, 7, false);
+		
+		// パス
+		screen1.path([[319, 199], [299, 179], [319, 159]], 7, false);
+		screen1.path([[160, 0], [150, 20], [170, 20]], 6, true);
+		
+		// テキスト
+		screen1.text(105, 25, "Retro Game JS Sample 1", 15);
+		screen1.text(102, 150, "Press Left or Right Key", 15);
+		
+		// スプライト
+		var sp1 = new RGSprite();
+		var sp2 = new RGSprite();
+		var sp3 = new RGSprite();
+		
+		// スクリーンへスプライト追加
+		screen1.addSprite(sp1, 2);
+		screen1.addSprite(sp2, 1);
+		screen1.addSprite(sp3, 1);
+		
+		// スプライトデータ反映
+		sp1.setPatternStringData(dataSprite1);
+		sp2.setPatternStringData(dataSprite2);
+		sp3.setPatternStringData(dataSprite3);
+		
+		var count = 0;
+		var sp1x = 10;
+		var sp1y = 80;
+		var int1 = setInterval(function(){
+			
+			// キー入力＆スプライト移動
+			if (screen1.scanKey('ArrowRight')) {
+				sp1x++;
+				if (screen1.getSize().width - sp1.getSize().width < sp1x) {
+					sp1x = screen1.getSize().width - sp1.getSize().width;
+				}
+			}
+			if (screen1.scanKey('ArrowLeft')) {
+				sp1x--;
+				if (sp1x < 0) {
+					sp1x = 0;
+				}
+			}
+			
+			sp1.put(sp1x , sp1y);
+			sp2.put((count) % 320, 90);
+			count++;
+			
+			// 衝突判定
+			if (sp1.getColliderSplites().length != 0) {
+				sp3.put(300 , 10);
+			} else {
+				sp3.off();
+			}
+			
+		}, 10);
+		
+		
+	}
+	
+	</script>
+
+</head>
+<body onload="start();">
+<div id='screen1'></div>
+</body>
+</html>
