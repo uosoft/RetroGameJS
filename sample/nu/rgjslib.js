@@ -173,25 +173,19 @@ RGScreen.prototype.text = function(x, y, text, c, scale) {
 	this.textList.push(textData);
 }
 
-RGScreen.prototype.pset = function(x, y, c, f) {
-	if (f == null) {
-		f = false;
-	}
+RGScreen.prototype.pset = function(x, y, c) {
 	var pathData = new Object();
 	pathData.color = c;
-	pathData.fill = f;
+	pathData.fill = false;
 	pathData.path2d = new Path2D();
 	pathData.path2d.rect(x + 0.5, y + 0.5, 1 ,1);
 	this.pathList.push(pathData);
 }
 
-RGScreen.prototype.line = function(x1, y1, x2, y2, c, f) {
-	if (f == null) {
-		f = false;
-	}
+RGScreen.prototype.line = function(x1, y1, x2, y2, c) {
 	var pathData = new Object();
 	pathData.color = c;
-	pathData.fill = f;
+	pathData.fill = false;
 	pathData.path2d = new Path2D();
 	pathData.path2d.moveTo(x1 + 0.5, y1 + 0.5);
 	pathData.path2d.lineTo(x2 + 0.5, y2 + 0.5);
@@ -545,103 +539,6 @@ RGSprite.prototype._addColliderSplites = function(sp) {
 	}
 	if (!exist) {
 		this.ColliderSplites.push(sp);
-	}
-}
-
-
-
-//==============================
-// RGMusicManager
-//==============================
-
-function RGMusicManager() {
-	this.musicList = new Array();
-	this.repeat = false;
-	this.checkTimer = null;
-	this.isPlay = false;
-	this.masterVolume = 100;
-}
-
-RGMusicManager.prototype.addMusic = function(music) {
-	music.objectId = this.getNewObjectId();
-	music.setMasterVolume(this.masterVolume);
-	this.musicList.push(music);
-}
-
-RGMusicManager.prototype.removeMusic = function(music) {
-	for (var i in this.musicList) {
-		if (this.musicList[i] == music) {
-			this.musicList.splice(i, 1);
-		}
-	}
-}
-
-RGMusicManager.prototype.clearMusic = function() {
-	this.musicList = new Array();
-}
-
-RGMusicManager.prototype.getNewObjectId = function() {
-	return ++RGScreen.objectIdCounter;
-}
-
-RGMusicManager.prototype.play = function(repeat) {
-	if (repeat) {
-		this.repeat = true;
-	} else {
-		this.repeat = false;
-	}
-	
-	if (this.isPlay) {
-		return false;
-	}
-	
-	this.isPlay = true;
-	for (var m of this.musicList) {
-		m.play();
-	}
-	var self = this;
-	this.checkTimer = setInterval(function() {
-		var isPlay = false;
-		for (var m of self.musicList) {
-			if (m.isPlay) {
-				isPlay = true;
-				break;
-			}
-		}
-		if (!isPlay) {
-			clearInterval(self.checkTimer);
-			self.checkTimer = null;
-			if (self.repeat) {
-				self.isPlay = false;
-				self.play(self.repeat);
-			} else {
-				this.isPlay = false;
-			}
-		}
-	}, 100);
-	
-	return true;
-}
-
-RGMusicManager.prototype.stop = function() {
-	if (this.checkTimer != null) {
-		clearInterval(this.checkTimer);
-		this.checkTimer = null;
-	}
-	for (var m of this.musicList) {
-		m.stop();
-	}
-	this.isPlay = false;
-}
-
-RGMusicManager.prototype.isPlay = function() {
-	return this.isPlay;
-}
-
-RGMusicManager.prototype.setMasterVolume = function(v) {
-	this.masterVolume = v;
-	for (var m of this.musicList) {
-		m.setMasterVolume(v);
 	}
 }
 

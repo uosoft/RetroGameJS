@@ -173,25 +173,19 @@ RGScreen.prototype.text = function(x, y, text, c, scale) {
 	this.textList.push(textData);
 }
 
-RGScreen.prototype.pset = function(x, y, c, f) {
-	if (f == null) {
-		f = false;
-	}
+RGScreen.prototype.pset = function(x, y, c) {
 	var pathData = new Object();
 	pathData.color = c;
-	pathData.fill = f;
+	pathData.fill = false;
 	pathData.path2d = new Path2D();
 	pathData.path2d.rect(x + 0.5, y + 0.5, 1 ,1);
 	this.pathList.push(pathData);
 }
 
-RGScreen.prototype.line = function(x1, y1, x2, y2, c, f) {
-	if (f == null) {
-		f = false;
-	}
+RGScreen.prototype.line = function(x1, y1, x2, y2, c) {
 	var pathData = new Object();
 	pathData.color = c;
-	pathData.fill = f;
+	pathData.fill = false;
 	pathData.path2d = new Path2D();
 	pathData.path2d.moveTo(x1 + 0.5, y1 + 0.5);
 	pathData.path2d.lineTo(x2 + 0.5, y2 + 0.5);
