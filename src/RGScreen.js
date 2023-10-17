@@ -4,7 +4,7 @@
 
 class RGScreen {
 	
-	static objectIdCounter = 0;
+	static _objectIdCounter = 0;
 	
 	constructor(elm) {
 		this.objectId = this.getNewObjectId();
@@ -88,7 +88,7 @@ class RGScreen {
 	}
 
 	getNewObjectId() {
-		return ++RGScreen.objectIdCounter;
+		return ++RGScreen._objectIdCounter;
 	}
 
 	setBackGroundColor(code) {
