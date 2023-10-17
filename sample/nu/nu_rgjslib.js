@@ -190,29 +190,6 @@ NuMap.prototype.MoveNu = function(dx, dy) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-	var initMusic = function() {
-		playOpenning = new RGMusicManager();
-		playGameover = new RGMusicManager();
-		playEnding = new RGMusicManager();
-		musicOpenning = new RGMusic();
-		musicGameover = new RGMusic();
-		musicEnding = new RGMusic();
-		playOpenning.addMusic(musicOpenning);
-		playGameover.addMusic(musicGameover);
-		playEnding.addMusic(musicEnding);
-		musicOpenning.setMML("T160V5O4L16CDEFGFEDL4C");
-		musicGameover.setMML("T130V5O3L2EDL1C");
-		musicEnding.setMML("T180V5O4L16CDEFGFEDCDFGEDFCEFGAL4B");
-	}
-
-	var playMusicGetGold = function() {
-		playGetGold = new RGMusicManager();
-		musicGetGold = new RGMusic();
-		playGetGold.addMusic(musicGetGold);
-		musicGetGold.setMML("T120V4O6L16CD");
-		playGetGold.play();
-	}
-
 	var spriteNU = [
 		"00333300",
 		"03333330",
@@ -293,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			if (screen1.scanKey(32)) {
 				numap.CreateMap();
-				//playOpenning.play();
 				mode = 2; // ゲーム画面
 			}
 		}
@@ -373,7 +349,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				isKeyDown = false;
 			}
 			if (!isKeyDown && isSpaceKey) {
-				//initMusic();
 				mode = 1; // タイトル画面
 			}
 		}
@@ -391,7 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				isKeyDown = false;
 			}
 			if (!isKeyDown && isSpaceKey) {
-				//initMusic();
 				mode = 1; // タイトル画面
 			}
 		}
